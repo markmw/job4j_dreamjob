@@ -2,30 +2,33 @@ package ru.job4j.dream.store;
 
 import ru.job4j.dream.model.Candidate;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CandidateStore {
     private static final CandidateStore INST = new CandidateStore();
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
+    private final AtomicInteger num = new AtomicInteger();
 
     private CandidateStore() {
-        candidates.put(1, new Candidate(
-                1,
+        candidates.put(num.incrementAndGet(), new Candidate(
+                num.get(),
                 "Addy Bay",
                 "Learning Java in sometimes",
-                "2022-08-11"));
-        candidates.put(2, new Candidate(
-                2,
+                LocalDateTime.of(2022, 8, 12, 9, 30)));
+        candidates.put(num.incrementAndGet(), new Candidate(
+                num.get(),
                 "Ivan Ivanov",
                 "Learning C++ in sometimes",
-                "2021-11-11"));
-        candidates.put(3, new Candidate(
-                3,
+                LocalDateTime.of(2022, 8, 12, 12, 0)));
+        candidates.put(num.incrementAndGet(), new Candidate(
+                num.get(),
                 "Sergey Popov",
                 "Learning Swift in sometimes",
-                "2022-12-12"));
+                LocalDateTime.of(2022, 8, 12, 13, 30)));
     }
 
     public static CandidateStore instOf() {
@@ -34,5 +37,12 @@ public class CandidateStore {
 
     public Collection<Candidate> findAll() {
         return candidates.values();
+    }
+
+    public void add(Candidate candidate) {
+        num.incrementAndGet();
+        candidate.setId(num.get());
+        candidate.setCreated(LocalDateTime.now());
+        candidates.put(num.get(), candidate);
     }
 }

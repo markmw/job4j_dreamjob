@@ -1,14 +1,15 @@
 package ru.job4j.dream.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Candidate {
     private int id;
     private String name;
     private String desc;
-    private String created;
+    private LocalDateTime created;
 
-    public Candidate(int id, String name, String desc, String created) {
+    public Candidate(int id, String name, String desc, LocalDateTime created) {
         this.id = id;
         this.name = name;
         this.desc = desc;
@@ -39,11 +40,11 @@ public class Candidate {
         this.desc = desc;
     }
 
-    public String getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
@@ -62,5 +63,15 @@ public class Candidate {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Candidate{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", desc='" + desc + '\''
+                + ", created=" + created
+                + '}';
     }
 }
