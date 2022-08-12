@@ -45,4 +45,12 @@ public class PostStore {
         post.setCreated(LocalDateTime.now());
         posts.put(num.get(), post);
     }
+
+    public Post findById(int id) {
+        return posts.get(id);
+    }
+
+    public void update(Post post) {
+        posts.replace(post.getId(), post);
+    }
 }

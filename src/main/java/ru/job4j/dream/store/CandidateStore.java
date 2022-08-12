@@ -1,6 +1,7 @@
 package ru.job4j.dream.store;
 
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.Post;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -44,5 +45,13 @@ public class CandidateStore {
         candidate.setId(num.get());
         candidate.setCreated(LocalDateTime.now());
         candidates.put(num.get(), candidate);
+    }
+
+    public Candidate findById(int id) {
+        return candidates.get(id);
+    }
+
+    public void update(Candidate candidate) {
+        candidates.replace(candidate.getId(), candidate);
     }
 }
