@@ -1,4 +1,4 @@
-package ru.job4j.dream.control;
+package ru.job4j.dream.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dream.model.Post;
-import ru.job4j.dream.store.PostStore;
+import ru.job4j.dream.service.PostService;
 
 import java.time.LocalDateTime;
 
 @Controller
 public class PostController {
-    private final PostStore store = PostStore.instOf();
+    private final PostService store = PostService.instOf();
 
     @GetMapping("/posts")
     public String posts(Model model) {
