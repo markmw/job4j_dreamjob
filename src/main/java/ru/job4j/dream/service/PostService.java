@@ -1,41 +1,34 @@
 package ru.job4j.dream.service;
 
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.store.PostStore;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class PostService {
-    private static final PostService INST = new PostService();
-    private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
-    private final AtomicInteger num = new AtomicInteger();
+    private final PostStore store = PostStore.instOf();
+    private static final PostService POST_SERVICE = new PostService();
 
-    public PostService() {
+    private PostService() {
     }
 
     public static PostService instOf() {
-        return INST;
+        return POST_SERVICE;
     }
 
     public Collection<Post> findAll() {
-        return posts.values();
-    }
-
-    public void add(Post post) {
-        num.incrementAndGet();
-        post.setId(num.get());
-        post.setCreated(LocalDateTime.now());
-        posts.put(num.get(), post);
-    }
-
-    public Post findById(int id) {
-        return posts.get(id);
+        return store.findAll();
     }
 
     public void update(Post post) {
-        posts.replace(post.getId(), post);
+        store.update(post);
+    }
+
+    public void add(Post post) {
+        store.add(post);
+    }
+
+    public Post findById(int id) {
+        return store.findById(id);
     }
 }
