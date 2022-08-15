@@ -10,6 +10,7 @@ public class Post implements Serializable {
     private String description;
     private LocalDateTime created;
     private boolean visible;
+    private City city;
 
     public Post() { }
 
@@ -58,6 +59,14 @@ public class Post implements Serializable {
 
     public boolean isVisible() {
         return visible;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     @Override

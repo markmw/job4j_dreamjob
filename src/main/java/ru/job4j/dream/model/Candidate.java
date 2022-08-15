@@ -10,6 +10,7 @@ public class Candidate implements Serializable {
     private String desc;
     private LocalDateTime created;
     private boolean visible;
+    private City city;
 
     public Candidate(int id, String name, String desc, LocalDateTime created) {
         this.id = id;
@@ -56,6 +57,14 @@ public class Candidate implements Serializable {
 
     public boolean isVisible() {
         return visible;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     @Override

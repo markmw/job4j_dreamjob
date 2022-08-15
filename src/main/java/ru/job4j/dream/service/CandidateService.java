@@ -10,13 +10,19 @@ import java.util.Collection;
 @Service @ThreadSafe
 public class CandidateService {
     private final CandidateStore store;
+    private final CityService cityService;
 
-    public CandidateService(CandidateStore store) {
+    public CandidateService(CandidateStore store, CityService cityService) {
         this.store = store;
+        this.cityService = cityService;
     }
 
     public Collection<Candidate> findAll() {
-        return store.findAll();
+        Collection<Candidate> candidates = store.findAll();
+        candidates.forEach(
+                candidate -> candidate.setCity(
+                        cityService.findById(candidate.getCity().getId())));
+        return candidates;
     }
 
     public void update(Candidate candidate) {

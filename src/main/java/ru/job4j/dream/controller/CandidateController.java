@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.service.CandidateService;
+import ru.job4j.dream.service.CityService;
 
 import java.time.LocalDateTime;
 
 @Controller @ThreadSafe
 public class CandidateController {
     private final CandidateService store;
+    private final CityService cityService;
 
-    public CandidateController(CandidateService store) {
+    public CandidateController(CandidateService store, CityService cityService) {
         this.store = store;
+        this.cityService = cityService;
     }
 
     @GetMapping("/candidates")
@@ -28,11 +31,7 @@ public class CandidateController {
 
     @GetMapping("/addCandidate")
     public String addCandidate(Model model) {
-        model.addAttribute("candidate", new Candidate(
-                0,
-                "Заполните поле",
-                "Заполните поле",
-                LocalDateTime.now()));
+        model.addAttribute("cities", cityService.getAllCities());
         return "addCandidate";
     }
 
@@ -45,6 +44,7 @@ public class CandidateController {
     @GetMapping("/formUpdateCandidate/{candidateId}")
     public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
         model.addAttribute("candidate", store.findById(id));
+        model.addAttribute("cities", cityService.getAllCities());
         return "updateCandidate";
     }
 
