@@ -13,7 +13,11 @@ import java.time.LocalDateTime;
 
 @Controller
 public class CandidateController {
-    private final CandidateService store = CandidateService.instOf();
+    private final CandidateService store;
+
+    public CandidateController(CandidateService store) {
+        this.store = store;
+    }
 
     @GetMapping("/candidates")
     public String candidates(Model model) {

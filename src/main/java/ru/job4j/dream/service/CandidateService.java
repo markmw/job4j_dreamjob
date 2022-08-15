@@ -8,14 +8,10 @@ import java.util.Collection;
 
 @Service
 public class CandidateService {
-    private final CandidateStore store = CandidateStore.instOf();
-    private static final CandidateService CANDIDATE_SERVICE = new CandidateService();
+    private final CandidateStore store;
 
-    private CandidateService() {
-    }
-
-    public static CandidateService instOf() {
-        return CANDIDATE_SERVICE;
+    public CandidateService(CandidateStore store) {
+        this.store = store;
     }
 
     public Collection<Candidate> findAll() {

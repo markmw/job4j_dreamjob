@@ -11,16 +11,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class PostStore {
-    private static final PostStore INST = new PostStore();
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
     private final AtomicInteger num = new AtomicInteger();
-
-    public PostStore() {
-    }
-
-    public static PostStore instOf() {
-        return INST;
-    }
 
     public Collection<Post> findAll() {
         return posts.values();

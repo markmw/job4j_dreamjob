@@ -8,14 +8,10 @@ import java.util.Collection;
 
 @Service
 public class PostService {
-    private final PostStore store = PostStore.instOf();
-    private static final PostService POST_SERVICE = new PostService();
+    private final PostStore store;
 
-    private PostService() {
-    }
-
-    public static PostService instOf() {
-        return POST_SERVICE;
+    public PostService(PostStore store) {
+        this.store = store;
     }
 
     public Collection<Post> findAll() {
