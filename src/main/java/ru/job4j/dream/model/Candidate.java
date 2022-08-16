@@ -7,17 +7,23 @@ import java.util.Objects;
 public class Candidate implements Serializable {
     private int id;
     private String name;
-    private String desc;
+    private String description;
     private LocalDateTime created;
     private boolean visible;
     private City city;
     private byte[] photo;
 
-    public Candidate(int id, String name, String desc, LocalDateTime created) {
+    public Candidate(int id, String name, String description, LocalDateTime created) {
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.description = description;
         this.created = created;
+    }
+
+    public Candidate(int id, String name) {
+    }
+
+    public Candidate(int id, String name, String description, LocalDateTime created, boolean visible, City city, byte[] photo) {
     }
 
     public int getId() {
@@ -36,12 +42,12 @@ public class Candidate implements Serializable {
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDateTime getCreated() {
@@ -98,7 +104,7 @@ public class Candidate implements Serializable {
         return "Candidate{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", desc='" + desc + '\''
+                + ", desc='" + description + '\''
                 + ", created=" + created
                 + '}';
     }

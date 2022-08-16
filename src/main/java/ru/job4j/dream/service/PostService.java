@@ -3,16 +3,16 @@ package ru.job4j.dream.service;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.dream.model.Post;
-import ru.job4j.dream.store.PostStore;
+import ru.job4j.dream.store.PostDbStore;
 
 import java.util.Collection;
 
 @Service @ThreadSafe
 public class PostService {
-    private final PostStore store;
+    private final PostDbStore store;
     private final CityService cityService;
 
-    public PostService(PostStore store, CityService cityService) {
+    public PostService(PostDbStore store, CityService cityService) {
         this.store = store;
         this.cityService = cityService;
     }
