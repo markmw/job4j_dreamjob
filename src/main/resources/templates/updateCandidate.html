@@ -61,7 +61,11 @@
                         <input type="file" class="form-control" name="file" id="file">
                         <img th:width="150" th:high="150" th:src="@{|/photoCandidate/${candidate.id}|}" alt="download...">
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <div class="form-check">
+                        <input type="checkbox" name="visible" class="form-check-input" id="visible">
+                        <label class="form-check-label" for="visible">Опубликовать</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
                 </form>
             </div>
         </div>
