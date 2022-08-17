@@ -1,6 +1,8 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.City;
@@ -13,6 +15,7 @@ import java.util.List;
 @Repository
 public class CandidateDbStore {
     private final BasicDataSource pool;
+    private static final Logger LOGGER = LoggerFactory.getLogger(CandidateDbStore.class.getName());
 
     public CandidateDbStore(BasicDataSource pool) {
         this.pool = pool;
@@ -30,12 +33,12 @@ public class CandidateDbStore {
                             it.getString("description"),
                             it.getTimestamp("created").toLocalDateTime(),
                             it.getBoolean("visible"),
-                            new City(it.getInt("city_id")),
+                            new City(it.getInt("city.id")),
                             it.getBytes("photo")));
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("ERROR: ", e);
         }
         return candidates;
     }
@@ -43,7 +46,7 @@ public class CandidateDbStore {
     public Candidate add(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
-                     "insert into candidate(name, description, created, visible, city_id, photo) "
+                     "insert into candidate(name, description, created, visible, city.id, photo) "
                              + "values(?, ?, ?, ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
             LocalDateTime now = LocalDateTime.now();
@@ -57,10 +60,11 @@ public class CandidateDbStore {
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
                     candidate.setId(id.getInt(1));
+                    candidate.setCreated(now);
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("ERROR: ", e);
         }
         return candidate;
     }
@@ -69,7 +73,7 @@ public class CandidateDbStore {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "update candidate SET name = ?, description = ?,"
-                             + "created = ?, visible = ?, city_id = ?, photo = ? where id = ?")) {
+                             + "created = ?, visible = ?, city.id = ?, photo = ? where id = ?")) {
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(candidate.getCreated()));
@@ -79,7 +83,7 @@ public class CandidateDbStore {
             ps.setInt(7, candidate.getId());
             ps.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("ERROR: ", e);
         }
     }
 
@@ -95,12 +99,12 @@ public class CandidateDbStore {
                             it.getString("description"),
                             it.getTimestamp("created").toLocalDateTime(),
                             it.getBoolean("visible"),
-                            new City(it.getInt("city_id")),
+                            new City(it.getInt("city.id")),
                             it.getBytes("photo"));
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("ERROR: ", e);
         }
         return null;
     }

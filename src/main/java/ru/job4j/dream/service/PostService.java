@@ -34,6 +34,10 @@ public class PostService {
     }
 
     public Post findById(int id) {
-        return store.findById(id);
+        Post post = store.findById(id);
+        if (post != null) {
+            post.setCity(cityService.findById(post.getCity().getId()));
+        }
+        return post;
     }
 }

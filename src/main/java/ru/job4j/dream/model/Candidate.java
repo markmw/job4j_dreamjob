@@ -13,17 +13,20 @@ public class Candidate implements Serializable {
     private City city;
     private byte[] photo;
 
-    public Candidate(int id, String name, String description, LocalDateTime created) {
+    public Candidate(int id,
+                     String name,
+                     String description,
+                     LocalDateTime created,
+                     boolean visible,
+                     City city,
+                     byte[] photo) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.created = created;
-    }
-
-    public Candidate(int id, String name) {
-    }
-
-    public Candidate(int id, String name, String description, LocalDateTime created, boolean visible, City city, byte[] photo) {
+        this.visible = visible;
+        this.city = city;
+        this.photo = photo;
     }
 
     public int getId() {
