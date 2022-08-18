@@ -33,7 +33,7 @@ public class CandidateDbStore {
                             it.getString("description"),
                             it.getTimestamp("created").toLocalDateTime(),
                             it.getBoolean("visible"),
-                            new City(it.getInt("city.id")),
+                            new City(it.getInt("city_id")),
                             it.getBytes("photo")));
                 }
             }
@@ -46,7 +46,7 @@ public class CandidateDbStore {
     public Candidate add(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
-                     "insert into candidate(name, description, created, visible, city.id, photo) "
+                     "insert into candidate(name, description, created, visible, city_id, photo) "
                              + "values(?, ?, ?, ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
             LocalDateTime now = LocalDateTime.now();
@@ -73,7 +73,7 @@ public class CandidateDbStore {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "update candidate SET name = ?, description = ?,"
-                             + "created = ?, visible = ?, city.id = ?, photo = ? where id = ?")) {
+                             + "created = ?, visible = ?, city_id = ?, photo = ? where id = ?")) {
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(candidate.getCreated()));
@@ -99,7 +99,7 @@ public class CandidateDbStore {
                             it.getString("description"),
                             it.getTimestamp("created").toLocalDateTime(),
                             it.getBoolean("visible"),
-                            new City(it.getInt("city.id")),
+                            new City(it.getInt("city_id")),
                             it.getBytes("photo"));
                 }
             }

@@ -33,7 +33,7 @@ public class PostDbStore {
                             it.getString("description"),
                             it.getTimestamp("created").toLocalDateTime(),
                             it.getBoolean("visible"),
-                            new City(it.getInt("city.id"))));
+                            new City(it.getInt("city_id"))));
                 }
             }
         } catch (Exception e) {
@@ -45,7 +45,7 @@ public class PostDbStore {
     public Post add(Post post) {
         try (Connection cn = pool.getConnection();
         PreparedStatement ps = cn.prepareStatement(
-                "insert into post(name, description, created, visible, city.id) "
+                "insert into post(name, description, created, visible, city_id) "
                         + "values(?, ?, ?, ?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
             LocalDateTime now = LocalDateTime.now();
@@ -71,7 +71,7 @@ public class PostDbStore {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "update post SET name = ?, description = ?,"
-                             + "created = ?, visible = ?, city.id = ? where id = ?")) {
+                             + "created = ?, visible = ?, city_id = ? where id = ?")) {
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(post.getCreated()));
@@ -96,7 +96,7 @@ public class PostDbStore {
                             it.getString("description"),
                             it.getTimestamp("created").toLocalDateTime(),
                             it.getBoolean("visible"),
-                            new City(it.getInt("city.id")));
+                            new City(it.getInt("city_id")));
                 }
             }
         } catch (Exception e) {

@@ -107,7 +107,7 @@ public class Candidate implements Serializable {
         return "Candidate{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", desc='" + description + '\''
+                + ", description='" + description + '\''
                 + ", created=" + created
                 + '}';
     }
