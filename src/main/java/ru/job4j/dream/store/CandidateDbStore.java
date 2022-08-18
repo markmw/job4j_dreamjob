@@ -108,4 +108,14 @@ public class CandidateDbStore {
         }
         return null;
     }
+
+    public void reset() {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("delete from candidate")
+        ) {
+            ps.execute();
+        } catch (Exception e) {
+            LOGGER.error("Error:", e);
+        }
+    }
 }
