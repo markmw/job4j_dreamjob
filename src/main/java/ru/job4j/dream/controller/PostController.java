@@ -29,7 +29,7 @@ public class PostController {
         model.addAttribute("cities", cityService.getAllCities());
         return "addPost";
     }
-//
+
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute Post post) {
         store.add(post);
