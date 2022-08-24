@@ -11,6 +11,9 @@ public class City {
         this.name = name;
     }
 
+    public City() {
+    }
+
     public City(int id) {
         this.id = id;
     }
@@ -46,5 +49,13 @@ public class City {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "City{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + '}';
     }
 }

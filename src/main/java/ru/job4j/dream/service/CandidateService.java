@@ -34,10 +34,6 @@ public class CandidateService {
     }
 
     public Candidate findById(int id) {
-        Candidate candidate = store.findById(id);
-        if (candidate != null) {
-            candidate.setCity(cityService.findById(candidate.getCity().getId()));
-        }
-        return candidate;
+        return store.findById(id);
     }
 }

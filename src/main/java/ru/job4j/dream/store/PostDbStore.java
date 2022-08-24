@@ -71,13 +71,12 @@ public class PostDbStore {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "update post SET name = ?, description = ?,"
-                             + "created = ?, visible = ?, city_id = ? where id = ?")) {
+                             + "visible = ?, city_id = ? where id = ?")) {
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
-            ps.setTimestamp(3, Timestamp.valueOf(post.getCreated()));
-            ps.setBoolean(4, post.isVisible());
-            ps.setInt(5, post.getCity().getId());
-            ps.setInt(6, post.getId());
+            ps.setBoolean(3, post.isVisible());
+            ps.setInt(4, post.getCity().getId());
+            ps.setInt(5, post.getId());
             ps.execute();
         } catch (SQLException e) {
             LOGGER.error("ERROR: ", e);

@@ -1,10 +1,10 @@
 package ru.job4j.dream.model;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Objects;
 
-public class Candidate implements Serializable {
+public class Candidate {
     private int id;
     private String name;
     private String description;
@@ -27,6 +27,9 @@ public class Candidate implements Serializable {
         this.visible = visible;
         this.city = city;
         this.photo = photo;
+    }
+
+    public Candidate() {
     }
 
     public int getId() {
@@ -109,6 +112,9 @@ public class Candidate implements Serializable {
                 + ", name='" + name + '\''
                 + ", description='" + description + '\''
                 + ", created=" + created
+                + ", visible=" + visible
+                + ", city=" + city
+                + ", photo=" + Arrays.toString(photo)
                 + '}';
     }
 }

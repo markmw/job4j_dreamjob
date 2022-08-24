@@ -26,6 +26,9 @@ public class Post implements Serializable {
         this.city = city;
     }
 
+    public Post() {
+    }
+
     public int getId() {
         return id;
     }
@@ -98,6 +101,8 @@ public class Post implements Serializable {
                 + ", name='" + name + '\''
                 + ", description='" + description + '\''
                 + ", created=" + created
+                + ", visible=" + visible
+                + ", city=" + city
                 + '}';
     }
 }

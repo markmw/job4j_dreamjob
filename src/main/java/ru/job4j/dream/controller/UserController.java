@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dream.model.User;
 import ru.job4j.dream.service.UserService;
 
-import java.util.Optional;
-
 @Controller @ThreadSafe
 public class UserController {
     private final UserService store;
@@ -26,11 +24,20 @@ public class UserController {
 
     @PostMapping("/registration")
     public String registration(Model model, @ModelAttribute User user) {
-        Optional<User> regUser = store.add(user);
-        if (regUser.isEmpty()) {
-            model.addAttribute("message", "Пользователь с такой почтой уже существует");
-            return "redirect:/failAddUser";
+        if (store.findUserByEmail(user.getEmail()) != null) {
+            model.addAttribute("message", "Пользователь с такой почтой уже существует!");
+            return "redirect:/fail";
         }
-        return "redirect:/successAddUser";
+        return "redirect:/success";
+    }
+
+    @GetMapping("/fail")
+    public String failRegUser() {
+        return "fail";
+    }
+
+    @GetMapping("success")
+    public String successRegUser() {
+        return "success";
     }
 }

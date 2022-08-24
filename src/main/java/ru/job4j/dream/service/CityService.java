@@ -4,18 +4,18 @@ import org.springframework.stereotype.Service;
 import ru.job4j.dream.model.City;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class CityService {
-    private Map<Integer, City> cities = new HashMap<Integer, City>();
+    private final Map<Integer, City> cities = new ConcurrentHashMap<>();
 
     public CityService() {
         cities.put(1, new City(1, "Москва"));
-        cities.put(2, new City(2, "СПБ"));
-        cities.put(3, new City(3, "ЕКБ"));
+        cities.put(2, new City(2, "СПб"));
+        cities.put(3, new City(3, "Екб"));
     }
 
     public List<City> getAllCities() {

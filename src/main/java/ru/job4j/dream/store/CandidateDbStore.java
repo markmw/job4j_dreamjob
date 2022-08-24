@@ -73,14 +73,13 @@ public class CandidateDbStore {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "update candidate SET name = ?, description = ?,"
-                             + "created = ?, visible = ?, city_id = ?, photo = ? where id = ?")) {
+                             + "visible = ?, city_id = ?, photo = ? where id = ?")) {
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getDescription());
-            ps.setTimestamp(3, Timestamp.valueOf(candidate.getCreated()));
-            ps.setBoolean(4, candidate.isVisible());
-            ps.setInt(5, candidate.getCity().getId());
-            ps.setBytes(6, candidate.getPhoto());
-            ps.setInt(7, candidate.getId());
+            ps.setBoolean(3, candidate.isVisible());
+            ps.setInt(4, candidate.getCity().getId());
+            ps.setBytes(5, candidate.getPhoto());
+            ps.setInt(6, candidate.getId());
             ps.execute();
         } catch (SQLException e) {
             LOGGER.error("ERROR: ", e);
