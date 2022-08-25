@@ -11,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.User;
 import ru.job4j.dream.service.CandidateService;
 import ru.job4j.dream.service.CityService;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller @ThreadSafe
@@ -27,13 +29,25 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates")
-    public String candidates(Model model) {
+    public String candidates(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setEmail("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("candidates", store.findAll());
         return "candidates";
     }
 
     @GetMapping("/addCandidate")
-    public String addCandidate(Model model) {
+    public String addCandidate(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setEmail("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("cities", cityService.getAllCities());
         return "addCandidate";
     }
@@ -47,7 +61,13 @@ public class CandidateController {
     }
 
     @GetMapping("/formUpdateCandidate/{candidateId}")
-    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
+    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setEmail("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("candidate", (store.findById(id)));
         model.addAttribute("cities", cityService.getAllCities());
         return "updateCandidate";
