@@ -24,7 +24,7 @@ public class UserService {
         return store.findAll();
     }
 
-    public Optional<User> findUserByEmail(String email) {
-        return store.findUserByEmail(email);
+    public Optional<User> findUserByEmailAndPwd(String email, String passsword) {
+        return store.findUserByEmailAndPwd(email, passsword);
     }
 }

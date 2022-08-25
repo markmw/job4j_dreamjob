@@ -65,11 +65,12 @@ public class UserDbStore {
         return rsl;
     }
 
-    public Optional<User> findUserByEmail(String email) {
+    public Optional<User> findUserByEmailAndPwd(String email, String password) {
         try (Connection cn = pool.getConnection()) {
             try (PreparedStatement pr = cn.prepareStatement(
-                    "select * from users where email = ?")) {
+                    "select * from users where email = ? and password = ?")) {
                 pr.setString(1, email);
+                pr.setString(2, password);
                 try (ResultSet result = pr.executeQuery()) {
                     if (result.next()) {
                         return Optional.of(new User(
