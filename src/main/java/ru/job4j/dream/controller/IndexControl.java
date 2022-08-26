@@ -3,7 +3,7 @@ package ru.job4j.dream.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.job4j.dream.model.User;
+import ru.job4j.dream.util.GetUserView;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,12 +11,7 @@ import javax.servlet.http.HttpSession;
 public class IndexControl {
     @GetMapping("/index")
     public String index(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setEmail("Гость");
-        }
-        model.addAttribute("user", user);
+        GetUserView.getUserView(model, session);
         return "index";
     }
 }
