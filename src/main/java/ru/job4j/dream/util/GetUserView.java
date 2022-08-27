@@ -6,6 +6,10 @@ import ru.job4j.dream.model.User;
 import javax.servlet.http.HttpSession;
 
 public final class GetUserView {
+
+    private GetUserView() {
+    }
+
     public static void getUserView(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
@@ -13,8 +17,5 @@ public final class GetUserView {
             user.setEmail("Гость");
         }
         model.addAttribute("user", user);
-    }
-
-    private GetUserView() {
     }
 }
